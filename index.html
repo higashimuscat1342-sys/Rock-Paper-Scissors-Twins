@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>さんすくみツインズ</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Outfit:wght@600;800&family=Zen+Kaku+Gothic+New:wght@400;700;900&display=swap" rel="stylesheet">
+<style>:root{--pk:#ff4f9a;--pk2:#ff7fbd;--pk3:#ff3d8e;--pkd:#c2307a;--ln:#ffb3d6;--soft:#ffeaf5;--ink:#5b2a52;--lv:#b58cff;--bg1:#ffd6ec;--bg2:#e8d6ff;--bg3:#cdeeff;--g1:#fff3a8;--g2:#b9ecff;--g3:#ffc2e2;--emo:"Segoe UI Emoji","Apple Color Emoji","Noto Color Emoji","Twemoji Mozilla",sans-serif}
+
+:root{--gold:#f0c869;--line:#34407a}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-user-select:none;user-select:none}
+html,body{width:100%;height:100%;overflow:hidden;background:#04050b;color:#e9ecff;font-family:"Hiragino Kaku Gothic ProN","Yu Gothic","Noto Sans JP",Meiryo,sans-serif}
+#stage{position:absolute;left:0;top:0;width:1280px;height:720px;transform-origin:0 0;overflow:hidden;background:radial-gradient(ellipse at 50% 25%,#1c2352 0%,#0b0e1d 70%)}
+.screen{position:absolute;inset:0}
+.hidden{display:none!important}
+button{font-family:inherit;color:inherit;cursor:pointer;border:0;background:none}
+.btn{display:block;padding:10px 26px;border-radius:10px;background:linear-gradient(#2b3570,#1c2350);border:1px solid #5663b8;font-size:17px;letter-spacing:.08em;transition:.15s}
+.btn:hover{filter:brightness(1.25);transform:translateY(-1px)}
+.btn.big{font-size:22px;padding:14px 40px;min-width:320px;margin:10px auto;background:linear-gradient(#5a3b9a,#3a2670);border-color:#a98bff}
+.btn.gold{background:linear-gradient(#e9b94a,#b9812a);color:#1b1305;border-color:#ffe29a;font-weight:700}
+.btn.sm{padding:6px 14px;font-size:14px}
+.btn:disabled{opacity:.4;cursor:default;filter:none;transform:none}
+h2{font-size:30px;letter-spacing:.2em;color:var(--gold);margin-bottom:14px}
+
+/* portrait */
+.portrait{position:relative;overflow:hidden;background:linear-gradient(160deg,#39407a,#1a1d3c)}
+.portrait img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top}
+.portrait.cut{background:none}
+.portrait.cut img{object-fit:contain;object-position:bottom}
+.portrait .pf{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:64px;font-weight:700;opacity:.3}
+.portrait.cut .pf{display:none}
+.portrait.ok .pf{display:none}
+
+/* title */
+#title .bgimg{position:absolute;inset:0;background:url(folder/title.png) center/cover no-repeat}
+#title .tbox{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);text-align:center;width:520px}
+#title h1{font-size:112px;font-weight:900;letter-spacing:.12em;line-height:1.1;background:linear-gradient(#fff3c4,#f0c869 55%,#b9812a);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 4px 12px #000a)}
+#title .sub{letter-spacing:.5em;font-size:13px;color:#9fb0ff}
+#title .tag{margin:6px 0 26px;font-size:18px;color:#cfd6ff;letter-spacing:.2em}
+#title .row2{display:flex;gap:12px;justify-content:center;margin-top:8px}
+.tport{position:absolute;bottom:0;width:360px;height:640px}
+.tport.l{left:30px}.tport.r{right:30px}
+.ver{position:absolute;right:12px;bottom:8px;font-size:11px;opacity:.4}
+
+/* select */
+#select{text-align:center;padding-top:34px}
+.attrcards{display:flex;gap:26px;justify-content:center;margin-top:6px}
+.acard{width:240px;height:228px;border-radius:16px;border:3px solid var(--ac);background:linear-gradient(160deg,color-mix(in srgb,var(--ac) 25%,#10142e),#10142e);padding:14px;cursor:pointer;opacity:.7;transition:.15s}
+.acard:hover{opacity:1}
+.acard.on{opacity:1;transform:translateY(-8px);box-shadow:0 0 30px var(--ac)}
+.acard .big{font-size:76px;font-weight:900;color:var(--ac);line-height:1.1}
+.acard .nm{font-size:20px;font-weight:700}
+.acard p{font-size:13px;margin-top:6px;opacity:.85}
+.acard .rel{font-size:12px;margin-top:8px;color:#ffe29a}
+.selrow{display:flex;justify-content:center;align-items:center;gap:10px;margin-top:14px;font-size:15px}
+.selrow .lb{width:130px;text-align:right;color:#9fb0ff}
+.seg{padding:8px 20px;border-radius:8px;background:#161b3c;border:1px solid #4a5498;font-size:15px}
+.seg.on{background:linear-gradient(#e9b94a,#b9812a);color:#1b1305;font-weight:700}
+#vsinfo{display:flex;gap:20px;justify-content:center;margin-top:14px}
+.vsc{width:330px;padding:10px 14px;border-radius:10px;background:#12163a;border:1px solid var(--line);text-align:left;font-size:14px}
+.vsc b{font-size:17px}
+.tri{margin-top:12px;font-size:15px;color:#cfd6ff;letter-spacing:.1em}
+.selbtns{position:absolute;left:0;right:0;bottom:40px;display:flex;justify-content:center;gap:20px}
+
+/* game */
+#hud{position:absolute;left:0;top:0;right:0;height:48px;display:flex;align-items:center;gap:16px;padding:0 14px;background:linear-gradient(#10142c,#0b0e1d);border-bottom:1px solid var(--line);z-index:5}
+#hud .logo{color:var(--gold);letter-spacing:.2em;font-size:18px}
+#hud #hint{font-size:11px;opacity:.55}
+#hud .sp{flex:1}
+#chips{display:flex;gap:8px}
+.chip{padding:4px 14px;border-radius:14px;border:2px solid var(--ac);font-size:13px;opacity:.5}
+.chip.on{opacity:1;background:var(--ac);color:#0b0e1d;font-weight:700}
+.chip.dead{text-decoration:line-through;opacity:.25}
+#left{position:absolute;left:10px;top:58px;width:250px;height:494px;display:flex;flex-direction:column}
+#right{position:absolute;right:10px;top:58px;width:250px}
+#boardwrap{position:absolute;left:266px;top:52px;width:748px;height:506px;background:url(folder/board_bg.png) center/cover no-repeat}
+#board{width:100%;height:100%}
+.pnl{background:rgba(16,20,44,.88);border:1px solid var(--line);border-radius:10px;padding:8px 10px;margin-bottom:8px;font-size:13px;position:relative}
+.pnl.act{box-shadow:0 0 0 2px var(--ac),0 0 16px var(--ac)}
+.pnl.dead{filter:grayscale(1) brightness(.55)}
+.ph{display:flex;align-items:center;gap:8px;font-size:15px;margin-bottom:2px}
+.attrb{display:inline-flex;width:24px;height:24px;border-radius:50%;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#10131f;background:var(--ac)}
+.hpbar{position:relative;height:16px;border-radius:8px;background:#0a0c1a;border:1px solid #444c8a;overflow:hidden;margin:4px 0}
+.hpbar i{position:absolute;left:0;top:0;bottom:0;background:linear-gradient(#ff8a8a,#c43a4a);transition:width .3s}
+.hpbar span{position:absolute;inset:0;text-align:center;font-size:11px;line-height:15px}
+.row{display:flex;justify-content:space-between;align-items:center;margin:3px 0}
+.row.sm{font-size:11px;opacity:.75}
+.orb{display:inline-block;width:13px;height:13px;border-radius:50%;margin-left:2px;background:#2a2f5a;border:1px solid #6a74c8}
+.orb.on{background:radial-gradient(#fff6c8,#f0b83a);box-shadow:0 0 6px #f0c869}
+.pip{display:inline-block;width:12px;height:12px;transform:rotate(45deg);margin-left:5px;background:#2a2f5a;border:1px solid #8a94d8}
+.pip.on{background:var(--gold);box-shadow:0 0 6px var(--gold)}
+.sis .portrait{height:130px;margin:-8px -10px 6px;border-radius:10px 10px 0 0}
+.bubble{position:absolute;left:8px;right:8px;top:84px;padding:5px 9px;border-radius:10px;background:#fffffff0;color:#1b1f3a;font-size:12px;opacity:0;transition:.25s;pointer-events:none;z-index:3}
+.bubble.on{opacity:1}
+#info{font-size:12px;line-height:1.5;min-height:84px}
+#info b{font-size:14px}
+#log{flex:1;overflow:hidden;font-size:11px;line-height:1.55;color:#b9c2f0;margin-bottom:0}
+#log div:last-child{color:#fff}
+#handarea{position:absolute;left:0;right:0;bottom:0;height:160px;background:linear-gradient(transparent,#05060e 35%);display:flex;align-items:flex-end;justify-content:center;padding-bottom:8px}
+#hand{display:flex;gap:8px;align-items:flex-end}
+#endturn{position:absolute;right:20px;bottom:18px;padding:14px 22px;font-size:18px}
+.card{position:relative;width:120px;height:148px;border-radius:10px;border:2px solid #5663b8;background:linear-gradient(#202858,#12162e);padding:6px 6px 5px;display:flex;flex-direction:column;transition:.15s;cursor:pointer;overflow:hidden}
+.card::before{content:"";position:absolute;left:0;right:0;top:0;height:5px;background:var(--ac)}
+.card.sp{border-color:#9a7bff}.card.sp::before{background:#9a7bff}
+.card:hover{transform:translateY(-14px)}
+.card.sel{transform:translateY(-24px);box-shadow:0 0 18px var(--gold);border-color:var(--gold)}
+.card.no{filter:grayscale(.85) brightness(.6)}
+.card .cost{position:absolute;left:-2px;top:-2px;width:28px;height:28px;border-radius:50%;background:#5a3b9a;border:2px solid #cdb6ff;font-weight:700;display:flex;align-items:center;justify-content:center;z-index:2}
+.card .nm{font-size:13px;font-weight:700;text-align:center;margin:3px 0 2px 16px;white-space:nowrap}
+.card .art{position:relative;flex:1;min-height:0;border-radius:6px;background:#0d1030;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.card .art img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.card .art .g{font-size:34px;color:var(--ac);opacity:.9}
+.card.sp .art .g{color:#bba6ff}
+.card .art.ok .g{display:none}
+.card .st{font-size:11px;text-align:center;margin-top:3px;color:#ffe29a;white-space:nowrap}
+.card .ds{font-size:9.5px;line-height:1.3;opacity:.85;margin-top:2px;height:26px;overflow:hidden}
+#toast{position:absolute;left:50%;top:60px;transform:translateX(-50%);padding:8px 22px;border-radius:20px;background:#000d;border:1px solid var(--gold);opacity:0;transition:.25s;pointer-events:none;z-index:30;font-size:14px}
+#toast.on{opacity:1}
+#banner{position:absolute;left:0;right:0;top:250px;text-align:center;font-size:56px;font-weight:900;letter-spacing:.2em;opacity:0;pointer-events:none;z-index:25;text-shadow:0 0 24px var(--ac,#fff),0 2px 6px #000}
+#banner.on{animation:ban 1.2s}
+@keyframes ban{0%{opacity:0;transform:scale(.7)}20%{opacity:1;transform:scale(1)}80%{opacity:1}100%{opacity:0;transform:scale(1.1)}}
+
+/* board svg */
+.cell polygon{fill:#171c3a;stroke:#35407a;stroke-width:1.5;transition:fill .15s}
+.cell.core polygon{fill:#2a2250;stroke:var(--gold);stroke-width:2.5}
+.cell.mv polygon{fill:#1d4a7a;stroke:#6fc3ff;stroke-width:2.5;cursor:pointer}
+.cell.sm polygon{fill:#1d6a4a;stroke:#7dffbf;stroke-width:2.5;cursor:pointer}
+.cell.mv:hover polygon,.cell.sm:hover polygon{filter:brightness(1.5)}
+.corelab{fill:var(--gold);font-size:22px;font-weight:700;opacity:.45;text-anchor:middle;pointer-events:none}
+.base{cursor:pointer}
+.base .bp{stroke-width:3}
+.base .shd{fill:none;stroke:#8be9ff;stroke-width:3;stroke-dasharray:6 4}
+.base text{text-anchor:middle;pointer-events:none;font-weight:700}
+.base.hit{animation:bhit .3s}
+.base.tg .bp{stroke:#ff4d6d;stroke-width:4;animation:pulse .8s infinite}
+.unit{transition:transform .3s ease,opacity .45s;cursor:pointer}
+.unit.dying{opacity:0;pointer-events:none}
+.unit .tok{transform-box:fill-box;transform-origin:center}
+.unit.born .tok{animation:born .4s}
+.unit.done .tok{filter:saturate(.3) brightness(.65)}
+.unit.hit .tok{animation:flash .3s}
+.unit .ring{fill:none;stroke:#ff4d6d;stroke-width:3.5;display:none}
+.unit.tg .ring{display:block;animation:pulse .8s infinite}
+.unit.sel .ring{display:block;stroke:#ffe29a;animation:none}
+.glyph{font-size:24px;font-weight:900;fill:#fff;text-anchor:middle;paint-order:stroke;stroke:#0008;stroke-width:3px;pointer-events:none}
+.bdg{fill:#10131f;stroke:#fff;stroke-width:1.5}
+.bdt{fill:#fff;font-size:12px;font-weight:700;text-anchor:middle;pointer-events:none}
+.float{font-weight:900;font-size:22px;text-anchor:middle;paint-order:stroke;stroke:#000;stroke-width:4px;animation:fl 1s forwards;pointer-events:none}
+@keyframes fl{from{transform:translateY(0);opacity:1}to{transform:translateY(-36px);opacity:0}}
+@keyframes born{from{transform:scale(.2);opacity:0}to{transform:scale(1);opacity:1}}
+@keyframes flash{0%,60%{filter:brightness(3)}100%{filter:none}}
+@keyframes bhit{0%,100%{opacity:1}50%{opacity:.3}}
+@keyframes pulse{50%{opacity:.35}}
+
+/* modal */
+#modal{position:absolute;inset:0;background:rgba(3,4,12,.8);display:flex;align-items:center;justify-content:center;z-index:50}
+.mbox{max-width:960px;max-height:680px;overflow:auto;background:linear-gradient(#1a2050,#10142e);border:2px solid #6a74c8;border-radius:16px;padding:24px 32px;text-align:center}
+.mbox h2{margin-bottom:12px}
+.mbox .btns{display:flex;gap:14px;justify-content:center;margin-top:18px}
+.mbox.rules{text-align:left;font-size:14px;line-height:1.75;width:800px}
+.mbox.rules h3{color:var(--gold);margin-top:10px;font-size:16px}
+.mbox.rules li{margin-left:20px}
+.mbox input[type=range]{width:260px;vertical-align:middle}
+.setrow{margin:12px 0;font-size:16px}
+.res-big{font-size:68px;font-weight:900;letter-spacing:.2em}
+.res-win{color:var(--gold)}.res-lose{color:#8fa0ff}.res-draw{color:#cfd6ff}
+.affrow{display:flex;gap:16px;justify-content:center;margin-top:14px}
+.affc{width:290px;background:#0f1332;border:1px solid var(--line);border-radius:10px;padding:10px;display:flex;gap:10px;text-align:left;align-items:center}
+.affc .portrait{width:70px;height:90px;border-radius:8px;flex:none}
+.abar{position:relative;height:12px;border-radius:6px;background:#0a0c1a;border:1px solid #6a74c8;margin-top:6px;overflow:hidden}
+.abar i{position:absolute;left:0;top:0;bottom:0;background:linear-gradient(var(--pk2),var(--pkd))}
+
+/* affection screen */
+#affection{text-align:center;padding-top:30px}
+.afcols{display:flex;gap:40px;justify-content:center;margin-top:8px}
+.afcol{width:520px;height:520px;background:#10143a;border:1px solid var(--line);border-radius:14px;padding:14px;display:flex;gap:14px;text-align:left}
+.afcol .portrait{width:200px;height:490px;border-radius:10px;flex:none}
+.afcol .inf{flex:1}
+.evb{display:block;width:100%;margin-top:8px;padding:10px;text-align:left;border-radius:8px;border:1px solid #6a74c8;background:#1c2350;font-size:14px}
+.evb.lock{opacity:.45;cursor:default}
+.evb.new{border-color:var(--gold);box-shadow:0 0 10px var(--gold)}
+.evb small{display:block;opacity:.7;font-size:11px}
+.evimg{width:560px;height:315px;margin:0 auto 10px;border-radius:10px}
+
+/* ===== ポップテーマ ===== */
+:root{--gold:var(--pk);--line:var(--ln)}
+html,body{background:var(--soft);color:var(--ink);font-family:"Hiragino Maru Gothic ProN","Yu Gothic UI","Hiragino Kaku Gothic ProN","Yu Gothic","Noto Sans JP",Meiryo,sans-serif}
+#stage{background:radial-gradient(circle at 12% 18%,var(--g1) 0,transparent 26%),radial-gradient(circle at 88% 12%,var(--g2) 0,transparent 30%),radial-gradient(circle at 80% 90%,var(--g3) 0,transparent 35%),linear-gradient(160deg,var(--bg1),var(--bg2) 55%,var(--bg3))}
+h2{color:var(--pk);text-shadow:0 2px 0 #fff}
+.btn{border-radius:999px;background:linear-gradient(var(--ln),var(--pk2));border:2px solid #fff;color:#fff;text-shadow:0 1px 2px #c2307a99;box-shadow:0 3px 0 #e0509a,0 6px 12px #e0509a55}
+.btn:hover{filter:brightness(1.08);transform:translateY(-2px)}
+.btn.big{background:linear-gradient(var(--pk2),var(--pk));border-color:#fff}
+.btn.gold{background:linear-gradient(#fff08a,#ffc83a);color:#7a3a00;text-shadow:none;border-color:#fff;box-shadow:0 3px 0 #e0a01a,0 6px 12px #e0a01a55}
+.portrait{background:linear-gradient(160deg,var(--bg1),var(--bg2))}
+.portrait.cut{background:#fff;border:5px solid #fff;border-radius:26px;box-shadow:0 8px 24px #c2307a55}
+.portrait.cut img{object-fit:cover;object-position:top}
+.portrait.cut:not(.ok) .pf{display:flex;color:var(--pk)}
+#title .bgimg{background:url(folder/title.png) center/cover no-repeat}
+#title h1{font-size:80px;font-weight:900;letter-spacing:.04em;line-height:1.05;filter:drop-shadow(4px 0 0 #fff) drop-shadow(-4px 0 0 #fff) drop-shadow(0 4px 0 #fff) drop-shadow(0 -4px 0 #fff) drop-shadow(0 8px 10px #c2307a77)}
+#title h1 span{display:block;-webkit-background-clip:text;background-clip:text;color:transparent}
+#title h1 .t1{background-image:linear-gradient(var(--pk2),var(--pk3) 70%,#e0307a)}
+#title h1 .t1 i{font-style:normal}
+#title h1 .t2{font-size:54px;letter-spacing:.14em;background-image:linear-gradient(#8fd8ff,#8a7bff)}
+#title .sub{color:var(--pk);font-weight:700;letter-spacing:.3em;margin-bottom:6px}
+#title .tag{display:inline-block;background:#ffffffcc;border-radius:999px;padding:5px 20px;color:var(--pkd);font-weight:700;letter-spacing:.12em;font-size:16px}
+.ver{color:var(--pkd)}
+.deco{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.deco span{position:absolute;bottom:-40px;font-size:var(--s);color:var(--c);opacity:0;text-shadow:0 0 6px #fff;animation:rise var(--d) linear infinite;animation-delay:var(--dl)}
+@keyframes rise{0%{transform:translateY(0) rotate(0);opacity:0}10%{opacity:.85}100%{transform:translateY(-780px) rotate(40deg);opacity:0}}
+.acard{background:linear-gradient(160deg,color-mix(in srgb,var(--ac) 22%,#fff),#fff)}
+.acard.on{box-shadow:0 0 28px var(--ac)}
+.selrow .lb{color:#c0589a}
+.seg{background:#fff;border:2px solid var(--ln);color:#8a3d6e;border-radius:999px}
+.seg.on{background:linear-gradient(var(--pk2),var(--pk));color:#fff;border-color:#fff}
+.vsc{background:#ffffffdd;border:2px solid var(--line)}
+.tri{color:#a8407f}
+#hud{background:linear-gradient(#fff,var(--soft));border-bottom:2px solid var(--ln)}
+#hud .logo{color:var(--pk)}
+#hud #hint{opacity:.75}
+.chip{background:#fff}
+.chip.on{color:#fff}
+.pnl{background:rgba(255,255,255,.92);border:2px solid var(--ln)}
+.attrb{color:#fff}
+.hpbar{background:#fff;border:1px solid var(--ln)}
+.hpbar i{background:linear-gradient(var(--pk2),#ff4f8a)}
+.hpbar span{color:var(--ink)}
+.orb{background:var(--soft);border:1px solid var(--pk2)}
+.orb.on{background:radial-gradient(#fff,#ffcf3a);box-shadow:0 0 6px #ffcf3a}
+.pip{background:var(--soft);border:1px solid var(--pk2)}
+.bubble{border:2px solid var(--ln)}
+#log{color:#8a4a7e}
+#log div:last-child{color:var(--pk3);font-weight:700}
+#handarea{background:linear-gradient(transparent,#ffd0e8e6 40%)}
+.card{background:linear-gradient(#fff,var(--soft));border:2px solid var(--ln);color:var(--ink)}
+.card.sp{border-color:var(--lv);background:linear-gradient(#fff,#f1e6ff)}
+.card .cost{background:var(--pk);border:2px solid #fff;color:#fff}
+.card .art{background:var(--soft)}
+.card .st{color:var(--pkd);font-weight:700}
+.card.sp .art .g{color:var(--lv)}
+.card.sel{box-shadow:0 0 18px var(--pk);border-color:var(--pk)}
+#toast{background:#fffffff2;color:var(--pkd);border:2px solid var(--pk2);font-weight:700}
+#banner{text-shadow:0 0 24px var(--ac,#fff),0 3px 0 #fff;color:var(--pk)}
+.cell polygon{fill:rgba(255,255,255,.6);stroke:var(--ln)}
+.cell.core polygon{fill:#fff3b0;stroke:var(--pk)}
+.cell.mv polygon{fill:#b9e4ff;stroke:#3aa0ee}
+.cell.sm polygon{fill:#bff5d8;stroke:#2fbf7a}
+.corelab{fill:var(--pk);opacity:.6}
+.base text{paint-order:stroke;stroke:#8a2b66;stroke-width:3px}
+#modal{background:rgba(255,205,232,.72)}
+.mbox{background:linear-gradient(#fff,var(--soft));border:3px solid var(--pk2);color:var(--ink)}
+.mbox.rules h3{color:var(--pk)}
+.res-lose{color:#6b7bff}.res-draw{color:#b06ab3}
+.affc,.afcol{background:rgba(255,255,255,.88);border:2px solid var(--ln)}
+.abar{background:#fff;border:1px solid var(--ln)}
+.evb{background:#fff5fa;border:1px solid var(--ln);color:var(--ink)}
+.evb.new{border-color:var(--pk);box-shadow:0 0 10px var(--pk)}
+
+/* ===== v3: フォント・タイトル ===== */
+html,body{font-family:"Zen Kaku Gothic New","Noto Sans JP","Hiragino Sans","Yu Gothic UI",Meiryo,sans-serif}
+.tport,.deco{display:none!important}
+#title .tbox{width:auto;white-space:nowrap}
+#title h1{font-family:"Dela Gothic One","Zen Kaku Gothic New","Hiragino Sans",sans-serif;font-weight:400;font-size:132px;letter-spacing:-.02em;line-height:1.05;color:#fff;background:none;filter:none;transform:skewX(-7deg);text-shadow:4px 4px 0 var(--pk3),8px 8px 0 #2b1747,0 12px 30px #2b174788}
+#title .sub{font-family:"Outfit","Zen Kaku Gothic New",sans-serif;font-weight:800;font-size:15px;letter-spacing:.7em;color:#fff;text-shadow:0 2px 8px #2b1747aa;margin:4px 0 10px}
+#title .tag{font-weight:700;letter-spacing:.2em;background:#2b1747cc;color:#fff;backdrop-filter:blur(4px)}
+.btn{font-weight:700;letter-spacing:.12em}
+h2{letter-spacing:.14em}
+#hud .logo{font-family:"Dela Gothic One","Zen Kaku Gothic New",sans-serif;font-weight:400;letter-spacing:.06em}
+.res-big,#banner{font-family:"Dela Gothic One","Zen Kaku Gothic New",sans-serif;font-weight:400}
+
+/* ===== v4: さんすくみツインズ ロゴ/タイトルレイアウト ===== */
+/* タイトル画像に合わせて位置を調整できます(顔に被らない位置へ) */
+#title{--lx:51.5%;--logo-y:16px;--logo-w:290px;--menu-y:300px;--menu-w:250px}
+#title .tbox{position:absolute;left:0;top:0;right:0;bottom:0;width:auto;transform:none;white-space:normal}
+#title .logoarea{position:absolute;left:var(--lx);top:var(--logo-y);width:var(--logo-w);transform:translateX(-50%);text-align:center}
+#title .menu{position:absolute;left:var(--lx);top:var(--menu-y);width:var(--menu-w);transform:translateX(-50%)}
+#title .menu .btn.big{min-width:0;width:100%;font-size:20px;padding:9px 12px;margin:5px auto;letter-spacing:.14em}
+#title .menu .row2{gap:10px}
+#title .menu .row2 .btn{flex:1;font-size:15px;padding:9px 6px;letter-spacing:.08em}
+#title .sub{font-size:12px;letter-spacing:.38em;margin:0 0 2px;padding-left:.38em;color:#fff;text-shadow:0 0 6px var(--pk3),0 1px 3px #2b1747cc}
+#title h1{font-family:"Dela Gothic One","Zen Kaku Gothic New","Yu Gothic UI","Meiryo",sans-serif;font-weight:900;font-size:50px;letter-spacing:-.03em;line-height:1;transform:none;color:inherit;text-shadow:none;filter:drop-shadow(0 6px 6px #7a1f5a66);margin:0}
+#title h1 .l1{display:flex;justify-content:center;white-space:nowrap}
+#title h1 .l1 b{display:inline-block;font-weight:inherit;color:#fff;text-shadow:4.0px 0.0px 0 #fff,3.7px 1.5px 0 #fff,2.8px 2.8px 0 #fff,1.5px 3.7px 0 #fff,0.0px 4.0px 0 #fff,-1.5px 3.7px 0 #fff,-2.8px 2.8px 0 #fff,-3.7px 1.5px 0 #fff,-4.0px 0.0px 0 #fff,-3.7px -1.5px 0 #fff,-2.8px -2.8px 0 #fff,-1.5px -3.7px 0 #fff,-0.0px -4.0px 0 #fff,1.5px -3.7px 0 #fff,2.8px -2.8px 0 #fff,3.7px -1.5px 0 #fff,7.0px 0.0px 0 var(--pk2),6.7px 2.2px 0 var(--pk2),5.7px 4.1px 0 var(--pk2),4.1px 5.7px 0 var(--pk2),2.2px 6.7px 0 var(--pk2),0.0px 7.0px 0 var(--pk2),-2.2px 6.7px 0 var(--pk2),-4.1px 5.7px 0 var(--pk2),-5.7px 4.1px 0 var(--pk2),-6.7px 2.2px 0 var(--pk2),-7.0px 0.0px 0 var(--pk2),-6.7px -2.2px 0 var(--pk2),-5.7px -4.1px 0 var(--pk2),-4.1px -5.7px 0 var(--pk2),-2.2px -6.7px 0 var(--pk2),-0.0px -7.0px 0 var(--pk2),2.2px -6.7px 0 var(--pk2),4.1px -5.7px 0 var(--pk2),5.7px -4.1px 0 var(--pk2),6.7px -2.2px 0 var(--pk2);-webkit-text-stroke:0;animation:logobob 2.4s ease-in-out infinite}
+#title h1 .l1 .c1{color:#ff4f7a}#title h1 .l1 .c2{color:#29c47e}#title h1 .l1 .c3{color:#2e9bff}
+#title h1 .l1 b:nth-child(odd){transform:rotate(-5deg)}#title h1 .l1 b:nth-child(even){transform:rotate(4deg) translateY(2px)}
+#title h1 .l1 b:nth-child(2){animation-delay:.15s}#title h1 .l1 b:nth-child(3){animation-delay:.3s}#title h1 .l1 b:nth-child(4){animation-delay:.45s}#title h1 .l1 b:nth-child(5){animation-delay:.6s}
+@keyframes logobob{50%{margin-top:-4px}}
+#title h1 .l2{display:flex;justify-content:center;align-items:center;gap:6px;margin-top:8px;font-size:34px;white-space:nowrap}
+#title h1 .l2 b{font-weight:inherit;color:#fff;padding:2px 16px 4px;border-radius:999px;background:linear-gradient(var(--pk2),var(--pk3));border:4px solid #fff;text-shadow:0 2px 0 var(--pkd);box-shadow:0 4px 0 var(--pkd),0 0 0 3px var(--pk2);letter-spacing:.06em}
+#title h1 .l2 .hh{font-style:normal;font-size:24px;color:#fff;text-shadow:0 0 0 #fff,0 2px 0 var(--pk3),0 0 8px var(--pk3);animation:hb 1.2s ease-in-out infinite}
+@keyframes hb{50%{transform:scale(1.3)}}
+#title .tag{margin-top:12px;font-size:14px;padding:5px 14px;letter-spacing:.1em;background:#2b1747d9;white-space:nowrap}
+/* 旧ブラウザ向けフォールバック */
+.acard{background:linear-gradient(160deg,#fff,#fff);background:linear-gradient(160deg,color-mix(in srgb,var(--ac) 22%,#fff),#fff)}
+/* 設定: データ引継ぎ/削除 */
+.mbox.set{width:620px}
+.setsec{margin-top:14px;padding:12px 14px;border:2px solid var(--ln);border-radius:16px;background:#fff7fb;text-align:center}
+.setsec h3{font-size:15px;color:var(--pk);margin-bottom:6px;letter-spacing:.1em}
+.setsec p{font-size:12px;opacity:.8;line-height:1.6;margin-bottom:8px}
+.setsec .btns{margin-top:8px;flex-wrap:wrap}
+.setsec textarea{width:100%;height:70px;margin-top:8px;border:2px solid var(--ln);border-radius:10px;padding:6px 8px;font-size:11px;font-family:Consolas,monospace;color:var(--ink);background:#fff;-webkit-user-select:text;user-select:text;resize:none}
+.setsec.danger{border-color:#ff7a8a;background:#fff3f4}
+.setsec.danger h3{color:#e0243e}
+.btn.danger{background:linear-gradient(#ff8a98,#e0243e);box-shadow:0 3px 0 #a8142a,0 6px 12px #e0243e55}
+
+/* ===== v5: スコア表示 / ステータス ===== */
+#hudscore{margin-left:14px;padding:3px 14px;border-radius:999px;background:linear-gradient(#fff08a,#ffb347);color:#7a3a00;font-weight:900;font-size:13px;letter-spacing:.08em;border:2px solid #fff;box-shadow:0 2px 0 #e8902a;white-space:nowrap}
+#hudscore b{font-size:18px;margin-left:4px;display:inline-block}
+#hudscore b.pop{animation:scpop .45s}
+@keyframes scpop{40%{transform:scale(1.35)}}
+.scorebox{margin:10px auto 0;max-width:600px;padding:10px 14px;border-radius:16px;background:linear-gradient(#fff9d6,#ffe9a8);border:3px solid #fff;box-shadow:0 0 0 2px #ffb347;color:#7a3a00}
+.scorebox .sc-main{font-size:15px;font-weight:900;letter-spacing:.12em}
+.scorebox .sc-main b{font-size:32px;margin-left:6px}
+.scorebox .sc-main em{font-style:normal;font-size:12px;color:#fff;background:var(--pk);border-radius:999px;padding:2px 10px;margin-left:8px;vertical-align:middle}
+.scorebox .sc-sub{margin-top:4px;font-size:12px;display:flex;flex-wrap:wrap;gap:4px 14px;justify-content:center}
+.scorebox .sc-sub b{margin-left:3px}
+.scorebox .sc-tot{margin-top:6px;padding-top:6px;border-top:2px dashed #ffb347;font-size:13px}
+.scorebox .sc-tot b{font-size:18px}
+#statbar{display:flex;justify-content:center;margin:2px 0 8px}
+#statbar .sb{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+#statbar .sb span{display:flex;flex-direction:column;align-items:center;min-width:130px;padding:6px 14px;border-radius:14px;background:#fffffff0;border:2px solid var(--ln);font-size:12px;color:#8a3a8e}
+#statbar .sb b{font-size:18px;color:var(--pk);margin-top:2px}
+
+/* ===== v6: アイコン(絵文字) / ショップ ===== */
+.glyph.emo{font-family:var(--emo);font-size:30px;fill:#000;stroke:none;paint-order:normal;filter:drop-shadow(0 1.5px 1.5px #0008)}
+.card .art .g.emo{font-size:46px;font-family:var(--emo);opacity:1;color:initial;filter:drop-shadow(0 2px 2px #0003)}
+#shop{text-align:center;padding-top:22px}
+#wallet{display:flex;justify-content:center;gap:10px;margin:2px 0 10px}
+#wallet span{padding:5px 16px;border-radius:999px;background:#fff;border:2px solid var(--ln);font-size:13px;color:var(--ink)}
+#wallet b{color:var(--pk);font-size:17px;margin-left:6px}
+#wallet span.main{background:linear-gradient(#fff08a,#ffb347);color:#7a3a00;border-color:#fff;box-shadow:0 2px 0 #e8902a}
+#wallet span.main b{color:#7a3a00;font-size:21px}
+#shoptabs{display:flex;gap:10px;justify-content:center;margin-bottom:12px}
+#shopgrid{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;padding:0 34px}
+.shopit{width:222px;min-height:300px;padding:14px 12px 12px;border-radius:20px;background:#fffffff2;border:3px solid var(--ln);display:flex;flex-direction:column;align-items:center;text-align:center;color:var(--ink);position:relative;box-shadow:0 6px 16px #c070b033}
+.shopit .ic{font-size:50px;line-height:1;height:64px;display:flex;align-items:center;justify-content:center;color:var(--pk)}
+.shopit .ic.emo{font-family:var(--emo);filter:drop-shadow(0 3px 3px #0003)}
+.shopit .nm{font-weight:900;font-size:18px}
+.shopit .meta{font-size:12px;color:var(--pkd);font-weight:700;margin:3px 0 5px}
+.shopit .ds{font-size:12px;line-height:1.5;opacity:.85;min-height:38px}
+.shopit .ow{font-size:12px;margin:8px 0 6px}
+.shopit .btn{margin-top:auto;min-width:150px}
+.shopit .btn:disabled{opacity:.45;filter:grayscale(.5);cursor:default}
+.shopit.maxed{opacity:.8}
+.shopit .sw{display:flex;gap:5px;margin:14px 0 8px}
+.shopit .sw i{width:34px;height:34px;border-radius:50%;border:3px solid #fff;box-shadow:0 0 0 1px #0002}
+.shopit.cur{border-color:var(--pk);box-shadow:0 0 0 3px var(--pk2),0 6px 16px #c070b033}
+.shopit.cur::after{content:'使用中';position:absolute;top:-11px;right:14px;background:var(--pk);color:#fff;font-size:11px;font-weight:700;padding:2px 12px;border-radius:999px}
+#shopnote{margin-top:12px;font-size:12px;opacity:.8;color:var(--ink)}
+#shop .back{margin-top:10px}
+body.embed #b-menu{display:none}
+/* ===== v8: デッキ編成 / 選択画面 / ショップ拡張 ===== */
+#deckinfo{display:flex;gap:10px;justify-content:center;align-items:center;flex-wrap:wrap;margin:6px 0 2px;font-size:13px;color:var(--ink)}
+#deckinfo>span{padding:4px 12px;border-radius:999px;background:#fffffff0;border:2px solid var(--ln);white-space:nowrap}
+#deckinfo b{color:var(--pk);margin-left:4px}
+#deckinfo .seg{padding:2px 12px;font-size:12px;margin-left:4px}
+#deckinfo .bf{color:var(--pkd);font-weight:700}
+#deck{text-align:center;padding-top:12px}
+#deckbar{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:0 0 8px;padding:0 20px}
+#deckbar>span{padding:4px 14px;border-radius:999px;background:#fff;border:2px solid var(--ln);font-size:12px;color:var(--ink);white-space:nowrap;display:flex;align-items:center}
+#deckbar b{color:var(--pk);margin:0 3px 0 6px;font-size:16px}
+#deckbar span.ok b{color:#1fa86b}#deckbar span.ng b{color:#e0243e}
+#curve{display:inline-flex;align-items:flex-end;gap:3px;height:28px;margin-left:8px}
+#curve i{width:11px;background:var(--pk2);border-radius:3px 3px 0 0;display:block}
+#deckgrid{display:grid;grid-template-columns:repeat(7,160px);gap:7px;justify-content:center}
+.dk{height:124px;padding:7px 9px 6px;border-radius:14px;background:#fffffff2;border:2px solid var(--ln);display:flex;flex-direction:column;position:relative;text-align:left;color:var(--ink)}
+.dk .top{display:flex;align-items:center;gap:6px}
+.dk .cost{width:22px;height:22px;border-radius:50%;background:var(--pk);color:#fff;font-weight:900;font-size:13px;display:flex;align-items:center;justify-content:center;flex:none}
+.dk.sp .cost{background:var(--lv)}
+.dk .nm{font-weight:900;font-size:13px;white-space:nowrap;overflow:hidden}
+.dk .gl{margin-left:auto;font-weight:900;font-size:18px;color:var(--pk2)}
+.dk .st{font-size:11px;color:var(--pkd);font-weight:700;margin-top:3px}
+.dk .ds{font-size:9.5px;line-height:1.3;opacity:.85;margin-top:2px;height:25px;overflow:hidden}
+.dk .ctl{margin-top:auto;display:flex;align-items:center;justify-content:center;gap:8px}
+.dk .ctl button{width:28px;height:24px;border-radius:999px;border:2px solid #fff;background:linear-gradient(var(--pk2),var(--pk));color:#fff;font-weight:900;font-size:15px;line-height:1;cursor:pointer;box-shadow:0 2px 0 var(--pkd)}
+.dk .ctl button:disabled{opacity:.35;cursor:default}
+.dk .ctl b{min-width:48px;text-align:center;font-size:14px}
+.dk.has{border-color:var(--pk);box-shadow:0 0 0 2px var(--pk2)}
+.dk.shop::before{content:'SHOP';position:absolute;right:8px;top:-8px;font-size:9px;background:#ffb347;color:#7a3a00;border-radius:999px;padding:1px 8px;font-weight:900}
+.dk.lock{opacity:.5}.dk.lock .ctl{font-size:11px;color:var(--pkd);font-weight:700}
+.deckbtns{display:flex;gap:10px;justify-content:center;margin-top:12px}
+#decknote{margin-top:8px;font-size:11px;opacity:.75;color:var(--ink)}
+#shopgrid{max-height:408px;overflow-y:auto;align-content:flex-start}
+.shopit{width:196px;min-height:250px;padding:11px 10px 10px}
+.shopit .ic{height:52px;font-size:42px}
+.unit.frz .tok{filter:grayscale(.35) brightness(1.2) hue-rotate(150deg)}
+
+.base text.emo{font-family:var(--emo);filter:drop-shadow(0 1px 1px #0008)}
+html[data-theme="mint"]{--pk:#16b394;--pk2:#4fd6b8;--pk3:#0fa183;--pkd:#0b7a64;--ln:#a6ecdc;--soft:#e6faf4;--ink:#1f4a47;--lv:#5fa8ff;--bg1:#c9f5e8;--bg2:#d4e8ff;--bg3:#fff6c8;--g2:#b9ecff;--g3:#b8f2d6}
+html[data-theme="sunset"]{--pk:#ff6a2e;--pk2:#ff9a5c;--pk3:#f2531a;--pkd:#b83f10;--ln:#ffd0ae;--soft:#fff0e4;--ink:#5a2a1a;--lv:#ff5f8a;--bg1:#ffdcbd;--bg2:#ffc9d6;--bg3:#fff0a8;--g2:#ffd6a8;--g3:#ffb2c4}
+html[data-theme="grape"]{--pk:#8a4dff;--pk2:#b08aff;--pk3:#7a35f0;--pkd:#5a2ab8;--ln:#d6c4ff;--soft:#f2ebff;--ink:#33215e;--lv:#ff6fb0;--bg1:#e2d4ff;--bg2:#c9d6ff;--bg3:#ffd0ec;--g1:#e8d6ff}
+html[data-theme="gold"]{--pk:#e0a010;--pk2:#f2c452;--pk3:#cf8f00;--pkd:#9a6a00;--ln:#f6dc9a;--soft:#fff6dc;--ink:#4d3510;--lv:#d9708a;--bg1:#fff0c4;--bg2:#ffe3b0;--bg3:#fff9e0;--g2:#ffe7a0;--g3:#ffd89a}
+</style>
+</head>
+<body>
+<div id="stage">
+
+<section id="title" class="screen">
+  <div class="bgimg"></div>
+  <div class="tport l" id="tp-a"></div>
+  <div class="tport r" id="tp-b"></div>
+  <div class="tbox">
+    <div class="logoarea">
+      <div class="sub">SANSUKUMI TWINS</div>
+      <h1 aria-label="さんすくみツインズ">
+        <span class="l1"><b class="c1">さ</b><b class="c2">ん</b><b class="c3">す</b><b class="c1">く</b><b class="c2">み</b></span>
+        <span class="l2"><i class="hh">♡</i><b>ツインズ</b><i class="hh">♡</i></span>
+      </h1>
+      <div class="tag">三すくみの陣取りカードバトル</div>
+    </div>
+    <div class="menu">
+      <button class="btn big" id="b-pro">プロローグ</button>
+      <button class="btn big" id="b-free">ゲームプレイ</button>
+      <button class="btn big" id="b-aff">ステータス💗</button>
+      <button class="btn big" id="b-shop">ショップ🛒</button>
+      <div class="row2"><button class="btn" id="b-rule">あそびかた</button><button class="btn" id="b-set">設定</button></div>
+    </div>
+  </div>
+  <div class="ver">v1.0</div>
+</section>
+
+<section id="select" class="screen hidden">
+  <h2>ゲームプレイ</h2>
+  <div style="font-size:14px;color:#9fb0ff">あなたの属性を選んでください</div>
+  <div class="attrcards" id="attrcards"></div>
+  <div class="tri">相性:　火 ➜ 草 ➜ 水 ➜ 火 　（矢印の先に強い）</div>
+  <div class="selrow"><span class="lb">有利な相手</span><span id="preyrow"></span></div>
+  <div id="vsinfo"></div>
+  <div id="deckinfo"></div>
+  <div class="selrow"><span class="lb">CPUの強さ</span><span id="diff"></span></div>
+  <div class="selbtns"><button class="btn" id="s-back">もどる</button><button class="btn gold big" style="margin:0" id="s-start">対戦開始</button></div>
+</section>
+
+<section id="game" class="screen hidden">
+  <div id="hud"><b class="logo">さんすくみツインズ</b><span id="round"></span><span id="hint">核(中央)を占拠したままターンを終えると+1点 / 6点で勝利</span><span id="hudscore">SCORE <b id="scv">0</b></span><span class="sp"></span><div id="chips"></div><span class="sp"></span><button class="btn sm" id="b-menu">メニュー</button></div>
+  <div id="left"></div>
+  <div id="boardwrap"><svg id="board" xmlns="http://www.w3.org/2000/svg"></svg></div>
+  <div id="right"></div>
+  <div id="handarea"><div id="hand"></div><button class="btn gold" id="endturn">ターン終了</button></div>
+  <div id="toast"></div><div id="banner"></div>
+</section>
+
+<section id="affection" class="screen hidden">
+  <h2>ステータス💗</h2>
+  <div id="statbar"></div>
+  <div class="afcols" id="afcols"></div>
+  <div style="margin-top:12px"><button class="btn" id="a-back" style="margin:0 auto">もどる</button></div>
+</section>
+
+<section id="shop" class="screen hidden">
+  <h2>ショップ🛒</h2>
+  <div id="wallet"></div>
+  <div id="shoptabs"><button class="seg on" data-t="cards">カード</button><button class="seg" data-t="themes">インターフェース</button></div>
+  <div id="shopgrid"></div>
+  <div id="shopnote"></div>
+  <div class="back" style="display:flex;gap:12px;justify-content:center"><button class="btn lav" id="sh-deck">デッキ編成</button><button class="btn" id="sh-back" style="margin:0">もどる</button></div>
+</section>
+
+<section id="deck" class="screen hidden">
+  <h2>デッキ編成</h2>
+  <div id="deckbar"></div>
+  <div id="deckgrid"></div>
+  <div class="deckbtns"><button class="btn sm" id="dk-reset">初期デッキに戻す</button><button class="btn sm lav" id="dk-auto">おまかせ編成</button><button class="btn gold" id="dk-save">保存してもどる</button><button class="btn sm" id="dk-back">キャンセル</button></div>
+  <div id="decknote">デッキは30枚ちょうど。ショップで買ったカードは、枚数の範囲で好きに入れ替えられます。カードにカーソルを合わせると説明が出ます。</div>
+</section>
+
+<div id="modal" class="hidden"></div>
+</div>
+
+<script src="folder/game.js"></script>
+<script>if(typeof Snd==='undefined')document.body.insertAdjacentHTML('afterbegin','<div style="position:fixed;z-index:9999;left:0;right:0;top:0;padding:10px;background:#fff0f0;color:#c01030;font:14px sans-serif">folder/game.js が読み込めません。index.html と同じ場所の folder フォルダを確認してください。</div>');</script>
+</body>
+</html>

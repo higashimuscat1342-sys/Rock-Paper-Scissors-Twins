@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>プロローグ - さんすくみツインズ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Kosugi+Maru&display=swap" rel="stylesheet">
+<style>:root{--pk:#ff4f9a;--pk2:#ff7fbd;--pk3:#ff3d8e;--pkd:#c2307a;--ln:#ffb3d6;--soft:#ffeaf5;--ink:#5b2a52;--lv:#b58cff;--bg1:#ffd6ec;--bg2:#e8d6ff;--bg3:#cdeeff;--g1:#fff3a8;--g2:#b9ecff;--g3:#ffc2e2;--emo:"Segoe UI Emoji","Apple Color Emoji","Noto Color Emoji","Twemoji Mozilla",sans-serif}
+
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{width:100%;height:100%;overflow:hidden;background:var(--bg1);color:var(--ink);font-family:"Kosugi Maru","Hiragino Maru Gothic ProN","Yu Gothic UI","Meiryo",sans-serif;user-select:none;-webkit-user-select:none}
+#stage{position:absolute;left:0;top:0;width:1280px;height:720px;transform-origin:0 0;overflow:hidden;background:linear-gradient(135deg,var(--bg1),var(--bg2) 55%,var(--bg3))}
+#world{position:absolute;inset:0}
+#world.shake{animation:shake .5s}
+@keyframes shake{10%,50%,90%{transform:translate(calc(var(--sk,9px)*-1),4px)}30%,70%{transform:translate(var(--sk,9px),-4px)}}
+.bg{position:absolute;inset:0;background-size:cover;background-position:center;background-repeat:no-repeat;opacity:0;transition:opacity .6s}
+.bg.on{opacity:1}
+#chars{position:absolute;inset:0;pointer-events:none}
+.ch{position:absolute;bottom:0;transform:translateX(-50%);height:690px;width:560px;display:flex;align-items:flex-end;justify-content:center;transition:left .5s,opacity .45s,filter .3s}
+.ch img{max-height:100%;max-width:100%;object-fit:contain;filter:drop-shadow(0 6px 10px #7a1f5a44)}
+.ch.dim{filter:brightness(.74) saturate(.9)}
+.ch .ph{display:none;width:300px;height:520px;border-radius:150px 150px 0 0;background:linear-gradient(#ffffffb0,#ffffff40);border:4px dashed var(--c,var(--pk2));color:var(--c,var(--pk));font-size:34px;font-weight:900;align-items:flex-start;justify-content:center;padding-top:150px;letter-spacing:.1em}
+.ch.noimg .ph{display:flex}.ch.noimg img{display:none}
+#cg{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity .6s;pointer-events:none}
+#cg.on{opacity:1}
+#flash{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none}
+#flash.go{animation:fl .5s}
+@keyframes fl{0%{opacity:.95}100%{opacity:0}}
+#curtain{position:absolute;inset:0;background:#000;opacity:0;pointer-events:none;transition:opacity 1s}
+/* メッセージウィンドウ */
+#ui{position:absolute;inset:0}
+#ui.hide #tools,#ui.hide #msgbox,#ui.fxhide #tools,#ui.fxhide #msgbox{opacity:0;pointer-events:none}
+#msgbox{position:absolute;left:56px;right:56px;bottom:22px;height:196px;padding:34px 44px 18px;border-radius:30px;background:rgba(255,255,255,.9);border:4px solid var(--pk2);box-shadow:0 0 0 4px #fff,0 8px 24px #b0307044;transition:opacity .25s}
+#nameplate{position:absolute;left:34px;top:-24px;min-width:150px;padding:5px 26px;border-radius:999px;color:#fff;background:var(--nc,var(--pk));border:4px solid #fff;box-shadow:0 3px 0 #0002;font-size:22px;font-weight:900;letter-spacing:.12em;text-align:center;text-shadow:0 1px 2px #0004}
+#nameplate:empty{display:none}
+#txt{font-size:27px;line-height:1.75;white-space:pre-wrap;word-break:break-all;height:130px;overflow:hidden}
+#more{position:absolute;right:34px;bottom:12px;color:var(--pk);font-size:24px;opacity:0;animation:bl 1s infinite}
+#more.on{opacity:1}
+@keyframes bl{50%{transform:translateY(5px)}}
+#tools{position:absolute;right:62px;bottom:228px;display:flex;gap:6px;transition:opacity .25s}
+.tb{padding:5px 14px;border-radius:999px;border:2px solid #fff;background:linear-gradient(var(--pk2),var(--pk));color:#fff;font:700 13px inherit;font-family:inherit;letter-spacing:.06em;cursor:pointer;box-shadow:0 2px 0 var(--pkd);text-shadow:0 1px 2px #b0307088}
+.tb:hover{filter:brightness(1.1)}
+.tb.on{background:linear-gradient(#fff08a,#ffb347);color:#7a3a00;text-shadow:none;box-shadow:0 2px 0 #e8902a}
+/* 選択肢 */
+#choices{position:absolute;left:0;right:0;top:120px;display:flex;flex-direction:column;align-items:center;gap:18px;pointer-events:none}
+.cbtn{pointer-events:auto;min-width:520px;max-width:900px;padding:15px 36px;border-radius:999px;border:4px solid #fff;background:linear-gradient(#ffb6da,#ff6fb0);color:#fff;font-size:24px;font-weight:900;letter-spacing:.08em;text-shadow:0 2px 3px #b0307088;box-shadow:0 5px 0 var(--pkd),0 8px 18px #b0307044;cursor:pointer;font-family:inherit}
+.cbtn:hover{filter:brightness(1.08);transform:translateY(-2px)}
+/* 章タイトル */
+#chap{position:absolute;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(#fff,var(--soft));z-index:20;text-align:center}
+#chap.on{display:flex;animation:ci .5s}
+@keyframes ci{from{opacity:0}}
+#chap h1{font-family:"Dela Gothic One","Kosugi Maru",sans-serif;font-size:76px;color:var(--pk);text-shadow:0 0 0 #fff,3px 3px 0 #fff,-3px 3px 0 #fff,3px -3px 0 #fff,-3px -3px 0 #fff,0 6px 0 var(--ln);letter-spacing:.08em}
+#chap p{margin-top:14px;font-size:26px;font-weight:700;color:var(--ink);letter-spacing:.18em}
+/* モーダル */
+#modal{position:absolute;inset:0;background:rgba(120,40,110,.45);display:none;align-items:center;justify-content:center;z-index:40}
+#modal.on{display:flex}
+.mbox{max-width:1000px;max-height:640px;overflow:auto;padding:26px 34px;border-radius:28px;background:linear-gradient(#fff,var(--soft));border:4px solid var(--pk2);box-shadow:0 0 0 4px #fff,0 10px 30px #0004;text-align:center}
+.mbox h2{color:var(--pk);letter-spacing:.2em;margin-bottom:12px;font-size:28px;text-shadow:0 2px 0 #fff}
+.btns{display:flex;gap:10px;justify-content:center;margin-top:16px;flex-wrap:wrap}
+.btn{padding:9px 26px;border-radius:999px;border:3px solid #fff;background:linear-gradient(var(--pk2),var(--pk));color:#fff;font:900 17px inherit;font-family:inherit;letter-spacing:.1em;cursor:pointer;box-shadow:0 4px 0 var(--pkd);text-shadow:0 1px 2px #b0307088}
+.btn:hover{filter:brightness(1.08)}.btn:disabled{opacity:.4;cursor:default;filter:grayscale(.6)}
+.btn.gold{background:linear-gradient(#fff08a,#ffb347);color:#7a3a00;text-shadow:none;box-shadow:0 4px 0 #e8902a}
+.btn.lav{background:linear-gradient(var(--pk2),var(--lv));box-shadow:0 4px 0 #8f66e0}
+#logbox{width:900px;height:430px;overflow:auto;text-align:left;padding:6px 14px;background:#fff;border-radius:16px;border:2px solid var(--ln);user-select:text;-webkit-user-select:text}
+.lg{padding:8px 4px;border-bottom:2px dotted var(--bg1);font-size:19px;line-height:1.6}
+.lg b{display:inline-block;min-width:100px;margin-right:10px;color:var(--c,var(--pk))}
+.lg.sel{color:var(--ink);font-weight:700}
+.slots{display:grid;grid-template-columns:repeat(4,226px);gap:12px;margin-top:6px}
+.slot{height:116px;padding:8px 10px;border-radius:16px;background:#fff;border:3px solid var(--ln);cursor:pointer;text-align:left;font-size:12px;line-height:1.5;color:var(--ink);font-family:inherit;overflow:hidden}
+.slot:hover{border-color:var(--pk);background:var(--soft)}.slot.empty{opacity:.6}
+.slot b{display:block;color:var(--pk);font-size:14px;margin-bottom:2px}.slot small{display:block;color:var(--ink);font-size:11px}
+.row{display:flex;align-items:center;justify-content:center;gap:14px;margin:12px 0;font-size:18px}
+.row span.lb{width:150px;text-align:right}.row input[type=range]{width:260px}.row .val{width:70px;text-align:left;font-size:14px;color:var(--ink)}
+/* 開始/終了画面 */
+#start{position:absolute;inset:0;z-index:50;display:flex;flex-direction:column;align-items:center;justify-content:center;background:radial-gradient(circle,#ffffff66 2px,transparent 2.5px) 0 0/34px 34px,linear-gradient(135deg,var(--bg1),var(--bg2) 55%,var(--bg3))}
+#start.hidden,#end.hidden{display:none}
+#start h1,#end h1{font-family:"Dela Gothic One","Kosugi Maru",sans-serif;font-size:92px;color:#fff;letter-spacing:.06em;text-shadow:3px 3px 0 var(--pk),-3px 3px 0 var(--pk),3px -3px 0 var(--pk),-3px -3px 0 var(--pk),0 7px 0 var(--pkd),0 12px 20px #b0307066}
+#start .sub,#end .sub{font-size:22px;font-weight:700;letter-spacing:.3em;color:var(--ink);margin:6px 0 30px;text-shadow:0 1px 0 #fff}
+#start .btn,#end .btn{display:block;min-width:300px;margin:8px auto;font-size:22px;padding:12px 30px}
+#end{position:absolute;inset:0;z-index:45;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(#ffffffe6,#ffd6ecf0)}
+#toast{position:absolute;left:50%;top:22px;transform:translateX(-50%);padding:8px 24px;border-radius:999px;background:#fffffff2;color:var(--ink);border:2px solid var(--pk2);font-size:15px;opacity:0;pointer-events:none;transition:.25s;z-index:60;max-width:1000px;white-space:nowrap}
+#toast.on{opacity:1}#toast.err{background:#fff0f0;border-color:#e0243e;color:#c01030}
+html[data-theme="mint"]{--pk:#16b394;--pk2:#4fd6b8;--pk3:#0fa183;--pkd:#0b7a64;--ln:#a6ecdc;--soft:#e6faf4;--ink:#1f4a47;--lv:#5fa8ff;--bg1:#c9f5e8;--bg2:#d4e8ff;--bg3:#fff6c8;--g2:#b9ecff;--g3:#b8f2d6}
+html[data-theme="sunset"]{--pk:#ff6a2e;--pk2:#ff9a5c;--pk3:#f2531a;--pkd:#b83f10;--ln:#ffd0ae;--soft:#fff0e4;--ink:#5a2a1a;--lv:#ff5f8a;--bg1:#ffdcbd;--bg2:#ffc9d6;--bg3:#fff0a8;--g2:#ffd6a8;--g3:#ffb2c4}
+html[data-theme="grape"]{--pk:#8a4dff;--pk2:#b08aff;--pk3:#7a35f0;--pkd:#5a2ab8;--ln:#d6c4ff;--soft:#f2ebff;--ink:#33215e;--lv:#ff6fb0;--bg1:#e2d4ff;--bg2:#c9d6ff;--bg3:#ffd0ec;--g1:#e8d6ff}
+html[data-theme="gold"]{--pk:#e0a010;--pk2:#f2c452;--pk3:#cf8f00;--pkd:#9a6a00;--ln:#f6dc9a;--soft:#fff6dc;--ink:#4d3510;--lv:#d9708a;--bg1:#fff0c4;--bg2:#ffe3b0;--bg3:#fff9e0;--g2:#ffe7a0;--g3:#ffd89a}
+
+#world{transition:filter .5s,transform .8s}
+#msgbox.nowin{display:none}
+#fxl{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:30}
+.hrt{position:absolute;bottom:-50px;opacity:0;text-shadow:0 0 8px #fff;animation:hup var(--d) ease-in forwards}
+@keyframes hup{10%{opacity:.95}100%{transform:translateY(-820px) rotate(var(--r));opacity:0}}
+#bt{position:absolute;inset:0;width:100%;height:100%;border:0;z-index:70;background:#fff}
+.gal{display:grid;grid-template-columns:repeat(4,200px);gap:10px;margin-top:8px}
+.gal .th{height:112px;border-radius:12px;border:3px solid var(--ln);background:#fff center/cover no-repeat;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--ink);font-size:12px;opacity:1}
+.gal .th.lock{background:linear-gradient(#f4eaf2,#e8dcea);cursor:default;opacity:.7}
+#cgview{position:absolute;inset:0;z-index:80;background:#000 center/contain no-repeat;display:none;cursor:pointer}
+</style>
+</head>
+<body>
+
+<!-- ==========================================================================
+  ★ シナリオ(ここを書き換えるだけでノベルが作れます)
+  書き方は下の「;」で始まる説明を参照。説明行はそのまま残してOK。
+============================================================================ -->
+<!-- ==========================================================================
+  ★ ノベルの設定は、この novel.html にまとめています
+    ・キャラ/素材の設定 …… 下の「キャラクター・基本設定」(CHARS / ASSET / GAME)
+    ・シナリオ …… folder の中のJS。プロローグは folder/prologue.js、姉妹のイベントは folder/event_a1.js 〜 event_b4.js
+    ・シナリオを増やすとき …… folder/○○.js を作り、下の「シナリオ一覧」に <script src> を1行足す。
+        再生は novel.html?scene=○○ 。ゲーム側(index.html)のイベントは event_a1〜a4(姉) / event_b1〜b4(妹) を自動で呼びます。
+    ・ノベルエンジン本体 …… folder/novel_engine.js
+============================================================================ -->
+<!--
+; ============================================================
+;  シナリオの書き方(行頭が ; の行はメモ。ゲームには出ません)
+; ------------------------------------------------------------
+;  ふつうの行            → 地の文(ナレーション)として表示
+;  夏海「こんにちは」     → 「名前「セリフ」」で名前つきセリフ (『』や（）も可)
+;  \n                     → 文中で改行
+;  *ラベル名              → ジャンプ先の目印
+;
+;  ■ 背景・立ち絵・CG
+;  @bg 画像 [秒]          背景を切り替え(クロスフェード)   例) @bg novel_bg_room 1   色もOK: @bg #ffe3f1 / @bg black
+;  @bg 画像 fade [秒]     暗転をはさんで切り替え           例) @bg novel_bg_night fade
+;  @show 名前 表情 位置    立ち絵を出す    位置: left / center / right / farleft / farright / 左 / 中 / 右 / 数字(%)
+;  @expr 名前 表情         表情だけ変える
+;  @move 名前 位置         立ち絵を動かす
+;  @hide 名前 / @hide all  立ち絵を消す(@hideall も可)
+;  @cg 画像 / @cg off      イベントCGを全画面表示 / 消す(見たCGはCGギャラリーに登録されます)
+;  ※ 画像は「novel_bg_room」のように名前だけ書くと folder/ と .png が自動で付きます(変更は ASSET)。
+;
+;  ■ 音
+;  @bgm 音声 / @bgm stop   BGMを流す / 止める       例) @bgm prologue.mp3
+;  @se 音声                効果音・ボイス
+;  @wait 秒                少し待つ(クリックで飛ばせる。500のように20以上はミリ秒扱い)
+;
+;  ■ 演出
+;  @flash [回数] [色] [間隔ms]   画面を明滅(白画面のフラッシュ)  例) @flash 3 / @flash 5 #fff 120
+;  @burst [強さ1〜3]       クライマックス演出(白画面の明滅がだんだん速く強くなり、揺れて、ホワイトアウトして戻る)
+;  @whiteout [秒] / @whitein [秒]   ゆっくり白くなる / 白から戻る   (@fadeout 色 秒 / @fadein 秒 も可)
+;  @shake [強さ] [秒]      画面を揺らす             例) @shake 2
+;  @filter 種類            画面の色味: blur / gray / sepia / dark / red / pink / none
+;  @zoom 倍率 [秒]         画面をズーム             例) @zoom 1.2 / @zoom 1
+;  @hearts [個数]          ハートがふわっと舞い上がる
+;  @window off / on        メッセージウィンドウを隠す / 出す
+;  @title 章名 | サブ      章タイトルカードを出す
+;  @chapter 章名           セーブスロットに表示する章名を設定
+;
+;  ■ 分岐・変数
+;  @choice 文 > ラベル | 文 > ラベル        1行で書く選択肢
+;  @choice → 次の行から「- 文 -> ラベル」を並べ、@endchoice で閉じる書き方もOK
+;  @jump ラベル            ラベルへジャンプ
+;  @set 変数 値 / @set 変数=値      変数に値を入れる      例) @set love 0
+;  @add 変数 数 / @set 変数+=数     変数に足す            例) @add love 1  /  @set love+=1
+;  @if 変数 比較 値 -> ラベル       条件ジャンプ(== != >= <= > <)  例) @if love >= 2 -> good
+;  @aff 夏海 +5            好感度を増減(ゲーム本編の好感度に反映。茉莉も同様)
+;
+;  ■ ゲーム本編との連携
+;  @battle 属性 難易度 勝ちラベル [負けラベル]   ノベルの途中でカードバトルを遊ぶ
+;        属性: 火/草/水   難易度: かんたん/ふつう/むずかしい
+;        結果は変数 win(1=勝ち) と score(そのバトルのスコア) に入ります。負けラベルを省略すると、負けた場合はやり直し。
+;  @end                    プロローグ終了(ゲーム本編へ戻る画面を出す。既読フラグも立つ)
+; ============================================================
+
+-->
+
+<div id="stage">
+ <div id="world">
+  <div class="bg" id="bgA"></div><div class="bg" id="bgB"></div>
+  <div id="chars"></div>
+  <div id="cg"></div>
+ </div>
+ <div id="flash"></div>
+ <div id="fxl"></div>
+ <div id="ui" class="fxhide">
+  <div id="choices"></div>
+  <div id="tools">
+   <button class="tb" id="t-auto">オート</button><button class="tb" id="t-skip">スキップ</button><button class="tb" id="t-log">ログ</button>
+   <button class="tb" id="t-save">セーブ</button><button class="tb" id="t-load">ロード</button><button class="tb" id="t-cfg">設定</button>
+   <button class="tb" id="t-hide">隠す</button><button class="tb" id="t-back">もどる</button>
+  </div>
+  <div id="msgbox"><div id="nameplate"></div><div id="txt"></div><div id="more">▼</div></div>
+ </div>
+ <div id="curtain" style="opacity:1"></div>
+ <div id="chap"><h1 id="chap1"></h1><p id="chap2"></p></div>
+ <div id="cgview"></div>
+ <div id="modal"><div class="mbox" id="mbox"></div></div>
+ <div id="toast"></div>
+ <div id="start" class="hidden">
+  <h1>プロローグ</h1><div class="sub">SANSUKUMI TWINS</div>
+  <button class="btn" id="s-new">はじめから</button>
+  <button class="btn lav" id="s-cont">つづきから</button>
+  <button class="btn" id="s-gal" style="background:linear-gradient(#a8e8ff,#5fb8ff);box-shadow:0 4px 0 #3a8ad8">CGギャラリー</button>
+  <button class="btn gold" id="s-back">ゲームへもどる</button>
+ </div>
+ <div id="end" class="hidden">
+  <h1>つづく…</h1><div class="sub">PROLOGUE END</div>
+  <button class="btn" id="e-go">ゲームへ進む</button>
+  <button class="btn lav" id="e-again">もういちど読む</button>
+ </div>
+</div>
+
+<!-- ==========================================================================
+  ★ キャラクター・基本設定(立ち絵の画像や名前の色はここで設定)
+  CHARS のキー(夏海・茉莉…)が、シナリオの「夏海「…」」「@show 夏海 …」の名前と対応します。
+  imgs の中の名前(normal / happy / sad…)が「表情」です。自由に増やせます。
+  aff は、@aff で増減させるゲーム本編の好感度(a=姉 / b=妹)。
+============================================================================ -->
+<script>
+const GAME={
+  backTo:'index.html',               // ゲーム本編のファイル名
+  mainSaveKey:'sangoku_ban_save_v1', // ゲーム本編のセーブキー(変更しない)
+  novelSaveKey:'sangoku_novel_save_v1'
+};
+/* 素材の置き場所: 「@bg novel_bg_room」のように名前だけ書くと、folder/ + 名前 + .png に展開されます */
+const ASSET={bg:'folder/',ch:'folder/',cg:'folder/',bgm:'folder/',se:'folder/',ext:'.png'};
+const CHARS={
+  '夏海':{color:'#ff6fa8',aff:'a',imgs:{normal:'folder/sister_a.png',happy:'folder/sister_a_happy.png',sad:'folder/sister_a_sad.png'}},
+  '茉莉':{color:'#6aa9ff',aff:'b',imgs:{normal:'folder/sister_b.png',happy:'folder/sister_b_happy.png',sad:'folder/sister_b_sad.png'}},
+  'あなた':{color:'#8a7bd8',imgs:{}}
+};
+</script>
+
+<!-- ★ シナリオ一覧(folder/○○.js)。ファイルを足したらここに1行追加 -->
+<script src="folder/prologue.js"></script>
+<script src="folder/event_a1.js"></script>
+<script src="folder/event_a2.js"></script>
+<script src="folder/event_a3.js"></script>
+<script src="folder/event_a4.js"></script>
+<script src="folder/event_b1.js"></script>
+<script src="folder/event_b2.js"></script>
+<script src="folder/event_b3.js"></script>
+<script src="folder/event_b4.js"></script>
+<!-- ノベルエンジン本体 -->
+<script src="folder/novel_engine.js"></script>
+<script>if(!window.NOVEL_SCENES)document.body.insertAdjacentHTML('afterbegin','<div style="position:fixed;z-index:999;left:0;right:0;top:0;padding:10px;background:#fff0f0;color:#c01030;font:14px sans-serif">folder のシナリオJSが読み込めていません。folder/prologue.js などの場所を確認してください。</div>');</script>
+</body>
+</html>
